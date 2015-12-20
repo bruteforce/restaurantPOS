@@ -35,8 +35,8 @@
         })
 
         .when('/manageRestaurant', {
-            controller: 'MenuController',
-            templateUrl: 'menu/addMenu.view.html',
+            controller: 'RestaurantController',
+            templateUrl: 'restaurant/addRestaurant.view.html',
             controllerAs: 'vm'
         })
 

@@ -42,7 +42,7 @@
                 }
             };
 
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
             $cookieStore.put('globals', $rootScope.globals);
         }
 

@@ -3,27 +3,35 @@
 
     angular
         .module('app')
-        .controller('RegisterController', RegisterController);
+        .controller('RestaurantController', RestaurantController);
 
-    RegisterController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
-    function RegisterController(UserService, $location, $rootScope, FlashService) {
+    RestaurantController.$inject = ['RestaurantService','UserService', '$location', '$rootScope', 'FlashService'];
+
+    function RestaurantController(RestaurantService, UserService, $location, $rootScope, FlashService) {
         var vm = this;
 
-        vm.register = register;
+        vm.addRestaurant = addRestaurant;
 
-        function register() {
+        function addRestaurant() {
             vm.dataLoading = true;
-            UserService.Create(vm.user)
-                .then(function (response) {
-                    if (response.success) {
-                        FlashService.Success('Registration successful', true);
-                        $location.path('/login');
-                    } else {
-                        FlashService.Error(response.message);
-                        vm.dataLoading = false;
-                    }
-                });
-        }
+            if (UserService.GetByUsername(vm.restaurant.username) == null) {
+                FlashService.Error("Entered username doesn't have a valid session");
+                vm.dataLoading = false;
+            }
+            else {
+                RestaurantService.Create(vm.restaurant)
+                    .then(function (response) {
+                        if (response.success) {
+                            FlashService.Success('Registration successful', true);
+                            $location.path('/');
+                        } else {
+                            FlashService.Error(response.message);
+                            vm.dataLoading = false;
+                        }
+                    });
+                }
+            }
     }
 
 })();
+

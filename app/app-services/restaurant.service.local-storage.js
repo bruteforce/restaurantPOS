@@ -28,38 +28,38 @@
         function GetById(id) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getRestaurants(), { id: id });
-            var irestaurant = filtered.length ? filtered[0] : null;
-            deferred.resolve(irestaurant);
+            var restaurant = filtered.length ? filtered[0] : null;
+            deferred.resolve(restaurant);
             return deferred.promise;
         }
 
-        function GetByRestaurantname(irestaurantname) {
+        function GetByRestaurantname(restaurantname) {
             var deferred = $q.defer();
-            var filtered = $filter('filter')(getRestaurants(), { irestaurantname: irestaurantname });
-            var irestaurant = filtered.length ? filtered[0] : null;
-            deferred.resolve(irestaurant);
+            var filtered = $filter('filter')(getRestaurants(), { restaurantname: restaurantname });
+            var restaurant = filtered.length ? filtered[0] : null;
+            deferred.resolve(restaurant);
             return deferred.promise;
         }
 
-        function Create(irestaurant) {
+        function Create(restaurant) {
             var deferred = $q.defer();
 
             // simulate api call with some timeout
             $timeout(function () {
-                GetByRestaurantname(irestaurant.irestaurantname)
+                GetByRestaurantname(restaurant.restaurantName)
                     .then(function (duplicateRestaurant) {
                         if (duplicateRestaurant !== null) {
-                            deferred.resolve({ success: false, message: 'Restaurantname "' + irestaurant.irestaurantname + '" is already taken' });
+                            deferred.resolve({ success: false, message: 'Restaurantname "' + restaurant.restaurantname + '" is already taken' });
                         } else {
-                            var irestaurants = getRestaurants();
+                            var restaurants = getRestaurants();
 
                             // assign id
-                            var lastRestaurant = irestaurants[irestaurants.length - 1] || { id: 0 };
-                            irestaurant.id = lastRestaurant.id + 1;
+                            var lastRestaurant = restaurants[restaurants.length - 1] || { id: 0 };
+                            restaurant.id = lastRestaurant.id + 1;
 
                             // save to local storage
-                            irestaurants.push(irestaurant);
-                            setRestaurants(irestaurants);
+                            restaurants.push(restaurant);
+                            setRestaurants(restaurants);
 
                             deferred.resolve({ success: true });
                         }
@@ -69,17 +69,17 @@
             return deferred.promise;
         }
 
-        function Update(irestaurant) {
+        function Update(restaurant) {
             var deferred = $q.defer();
 
-            var irestaurants = getRestaurants();
-            for (var i = 0; i < irestaurants.length; i++) {
-                if (irestaurants[i].id === irestaurant.id) {
-                    irestaurants[i] = irestaurant;
+            var restaurants = getRestaurants();
+            for (var i = 0; i < restaurants.length; i++) {
+                if (restaurants[i].id === restaurant.id) {
+                    restaurants[i] = restaurant;
                     break;
                 }
             }
-            setRestaurants(irestaurants);
+            setRestaurants(restaurants);
             deferred.resolve();
             return deferred.promise;
         }
@@ -87,15 +87,15 @@
         function Delete(id) {
             var deferred = $q.defer();
 
-            var irestaurants = getRestaurants();
-            for (var i = 0; i < irestaurants.length; i++) {
-                var irestaurant = irestaurants[i];
-                if (irestaurant.id === id) {
-                    irestaurants.splice(i, 1);
+            var restaurants = getRestaurants();
+            for (var i = 0; i < restaurants.length; i++) {
+                var restaurant = restaurants[i];
+                if (restaurant.id === id) {
+                    restaurants.splice(i, 1);
                     break;
                 }
             }
-            setRestaurants(irestaurants);
+            setRestaurants(restaurants);
             deferred.resolve();
 
             return deferred.promise;
@@ -104,15 +104,15 @@
         // private functions
 
         function getRestaurants() {
-            if(!localStorage.irestaurants){
-                localStorage.irestaurants = JSON.stringify([]);
+            if(!localStorage.restaurants){
+                localStorage.restaurants = JSON.stringify([]);
             }
 
-            return JSON.parse(localStorage.irestaurants);
+            return JSON.parse(localStorage.restaurants);
         }
 
-        function setRestaurants(irestaurants) {
-            localStorage.irestaurants = JSON.stringify(irestaurants);
+        function setRestaurants(restaurants) {
+            localStorage.restaurants = JSON.stringify(restaurants);
         }
     }
 })();
