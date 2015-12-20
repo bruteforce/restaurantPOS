@@ -34,6 +34,12 @@
           controllerAs: 'vm'
         })
 
+        .when('/manageRestaurant', {
+            controller: 'MenuController',
+            templateUrl: 'menu/addMenu.view.html',
+            controllerAs: 'vm'
+        })
+
         .otherwise({ redirectTo: '/login' });
   }
 
