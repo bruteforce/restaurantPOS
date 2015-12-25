@@ -2,16 +2,13 @@
 <p>You're logged in!!</p>
 <ul>
     <li ng-repeat="user in vm.allUsers">
-        Restaurant {{user.userRole}} :  ({{user.firstName}} {{user.lastName}})
+        User Name :  ({{user.firstName}} {{user.lastName}})
         - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
     </li>
-    <li>
-        <a href="#/manageRestaurant" >Add Restaurant Details</a>
-    </li>
 
-    <li>
-        <a href="#/manageMenu" >Manage Menu</a>
-    </li>f
+    <li ng-repeat="user in vm.allUsers">
+        User Role :  ({{user.role}})
+    </li>
 </ul>
 <p>&nbsp;</p>
 <p><a href="#/login" class="btn btn-primary">Logout</a></p>

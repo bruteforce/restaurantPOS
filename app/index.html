@@ -2,22 +2,99 @@
 <html ng-app="app">
 <head>
   <meta charset="utf-8" />
-  <title>AngularJS User Registration and Login Example</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <title>Restaurant POS</title>
   <link href="app.css" rel="stylesheet" />
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/sb-admin.css" rel="stylesheet">
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<div class="jumbotron">
-  <div class="container">
-    <div class="col-sm-8 col-sm-offset-2">
-      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-      <div ng-view></div>
+<div id="wrapper">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Restaurant POS</a>
     </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu message-dropdown">
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu alert-dropdown">
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+          </li>
+          <li>
+            <a href="#/login"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav side-nav">
+        <li class="active">
+          <a href="#/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+        </li>
+        <li>
+          <a href="#/manageRestaurant"><i class="fa fa-fw fa-bar-chart-o"></i> Restaurants</a>
+        </li>
+        <li>
+          <a href="#/manageMenu"><i class="fa fa-fw fa-table"></i> Menu</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </nav>
+
+  <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+      <div class="jumbotron">
+        <div class="container">
+          <div class="col-sm-8 col-sm-offset-2">
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+            <div ng-view></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+
   </div>
+  <!-- /#page-wrapper -->
+
 </div>
 
+
+
+
+
 <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="//code.angularjs.org/1.2.20/angular.js"></script>
 <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
 <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>

@@ -1,25 +1,144 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Add Item to Menu</h2>
-    <form name="itemForm" id="itemForm" ng-submit="vm.addItem()" role="form">
-        <div class="form-group" ng-class="{ 'has-error': form.itemName.$dirty && form.itemName.$error.required }">
-            <label for="itemName">Item Name</label>
-            <input type="text" name="itemName" id="itemName" class="form-control" ng-model="vm.item.itemName" required />
-            <span ng-show="form.itemName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.itemCategory.$dirty && form.itemCategory.$error.required }">
-            <label for="itemCategory">Item Category</label>
-            <input type="text" name="itemCategory" id="itemCategory" class="form-control" ng-model="vm.item.itemCategory" required />
-            <span ng-show="form.itemCategory.$dirty && form.itemCategory.$error.required" class="help-block">Category is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.itemPrice.$dirty && form.itemPrice.$error.required }">
-            <label for="itemPrice">Item Price</label>
-            <input type="text" name="itemPrice" id="itemPrice" class="form-control" ng-model="vm.item.itemPrice" required />
-            <span ng-show="form.itemPrice.$dirty && form.itemPrice.$error.required" class="help-block">Price is required</span>
-        </div>
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Add Item</button>
-            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a href="#/" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
+<div class="col-md-12">
+    <div class="widget stacked widget-table action-table">
+        <button class=".btn-default" type="button" data-toggle="modal" data-target="#adModal" ng-click="vm.resetForm()">Add Menu Items</button>
+        <div class="widget-header">
+            <i class="icon-th-list"></i>
+            <h3>Existing Menu Items</h3>
+        </div> <!-- /widget-header -->
+
+
+        <div class="widget-content">
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Item Category</th>
+                    <th>Item Price</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th class="td-actions"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="item in vm.itemList">
+                    <td>{{item.id}}</td>
+                    <td>{{item.itemName}}</td>
+                    <td>{{item.itemCategory}}</td>
+                    <td>{{item.itemPrice}}</td>
+                    <td class="td-actions" ng-click="openEditItem(item.id)">
+                        <a class="btn btn-small btn-primary" ng-click="vm.resetForm();vm.openEditItem(item.id)">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
+                    <td class="td-actions">
+                        <a class="btn btn-small btn-primary" ng-click="vm.deleteItem(item.id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div> <!-- /widget-content -->
+
+    </div> <!-- /widget -->
 </div>
+
+<div class="modal fade" id="adModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Item</h4>
+            </div>
+            <div class="modal-body" style="height: 356px;">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>Add Item to Menu</h2>
+                    <form name="itemForm" id="itemForm" ng-submit="vm.addItem()" role="form">
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemName.$dirty && form.itemName.$error.required }">
+                            <label for="itemName">Item Name</label>
+                            <input type="text" name="itemName" id="itemName" class="form-control" ng-model="vm.item.itemName" required />
+                            <span ng-show="form.itemName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                        </div>
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemCategory.$dirty && form.itemCategory.$error.required }">
+                            <label for="itemCategory">Item Category</label>
+                            <input type="text" name="itemCategory" id="itemCategory" class="form-control" ng-model="vm.item.itemCategory" required />
+                            <span ng-show="form.itemCategory.$dirty && form.itemCategory.$error.required" class="help-block">Category is required</span>
+                        </div>
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemPrice.$dirty && form.itemPrice.$error.required }">
+                            <label for="itemPrice">Item Price</label>
+                            <input type="text" name="itemPrice" id="itemPrice" class="form-control" ng-model="vm.item.itemPrice" required />
+                            <span ng-show="form.itemPrice.$dirty && form.itemPrice.$error.required" class="help-block">Price is required</span>
+                        </div>
+
+
+                        <div class="form-actions">
+                            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Add Item</button>
+                            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Item</h4>
+            </div>
+            <div class="modal-body" style="height: 356px;">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>Edit Item to Menu</h2>
+                    <form name="itemForm"  ng-submit="vm.updateItem()" role="form">
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemName.$dirty && form.itemName.$error.required }">
+                            <label for="itemName">Item Name</label>
+                            <input type="text" name="itemName"  class="form-control" ng-model="vm.item.itemName" required />
+                            <span ng-show="form.itemName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                        </div>
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemCategory.$dirty && form.itemCategory.$error.required }">
+                            <label for="itemCategory">Item Category</label>
+                            <input type="text" name="itemCategory"  class="form-control" ng-model="vm.item.itemCategory" required />
+                            <span ng-show="form.itemCategory.$dirty && form.itemCategory.$error.required" class="help-block">Category is required</span>
+                        </div>
+
+
+                        <div class="form-group" ng-class="{ 'has-error': form.itemPrice.$dirty && form.itemPrice.$error.required }">
+                            <label for="itemPrice">Item Price</label>
+                            <input type="text" name="itemPrice"  class="form-control" ng-model="vm.item.itemPrice" required />
+                            <span ng-show="form.itemPrice.$dirty && form.itemPrice.$error.required" class="help-block">Price is required</span>
+                        </div>
+
+
+                        <div class="form-actions">
+                            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Update Item</button>
+                            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

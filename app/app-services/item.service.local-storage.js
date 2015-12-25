@@ -46,10 +46,10 @@
 
             // simulate api call with some timeout
             $timeout(function () {
-                GetByItemname(item.itemname)
+                GetByItemname(item.itemName)
                     .then(function (duplicateItem) {
                         if (duplicateItem !== null) {
-                            deferred.resolve({ success: false, message: 'Itemname "' + item.itemname + '" is already taken' });
+                            deferred.resolve({ success: false, message: 'Itemname "' + item.itemName + '" is already taken' });
                         } else {
                             var items = getItems();
 
