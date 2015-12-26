@@ -2,7 +2,7 @@
 
 <div class="col-md-12">
     <div class="widget stacked widget-table action-table" style="width:700px">
-        <button class=".btn-default" type="button" data-toggle="modal" data-target="#editModal" ng-click="vm.resetForm()">Add Restaurant</button>
+        <button class=".btn-default" type="button" data-toggle="modal" data-target="#adModal" ng-click="vm.resetForm()">Add Restaurant</button>
         <div class="widget-header">
             <i class="icon-th-list"></i>
             <h3>Existing Restaurant List</h3>
@@ -61,24 +61,24 @@
             </div>
             <div class="modal-body" style="height: 356px;">
                 <div class="col-md-6">
-                    <form name="form" ng-submit="vm.addRestaurant()" role="form">
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantName.$dirty && form.restaurantName.$error.required }">
+                    <form name="adform" ng-submit="vm.addRestaurant()" role="form">
+                        <div class="form-group" ng-class="{ 'has-error': adform.restaurantName.$dirty && adform.restaurantName.$error.required }">
                             <label for="restaurantName">Restaurant name</label>
                             <input type="text" name="restaurantName"  class="form-control" ng-model="vm.restaurant.restaurantName" required />
-                            <span ng-show="form.restaurantName.$dirty && form.restaurantName.$error.required" class="help-block">Restaurant name is required</span>
+                            <span ng-show="adform.restaurantName.$dirty && adform.restaurantName.$error.required" class="help-block">Restaurant name is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantAddress.$dirty && form.restaurantAddress.$error.required }">
+                        <div class="form-group" ng-class="{ 'has-error': adform.restaurantAddress.$dirty && adform.restaurantAddress.$error.required }">
                             <label for="restaurantAddress">Restaurant Address</label>
                             <input type="text" name="restaurantAddress"  class="form-control" ng-model="vm.restaurant.restaurantAddress" required />
-                            <span ng-show="form.restaurantAddress.$dirty && form.restaurantAddress.$error.required" class="help-block">Restaurant Address is required</span>
+                            <span ng-show="adform.restaurantAddress.$dirty && adform.restaurantAddress.$error.required" class="help-block">Restaurant Address is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantMobile.$dirty && form.restaurantMobile.$error.required }">
+                        <div class="form-group" ng-class="{ 'has-error': adform.restaurantMobile.$dirty && adform.restaurantMobile.$error.required }">
                             <label for="restaurantMobile">Restaurant Contact Number</label>
-                            <input type="text" name="restaurantMobile"  class="form-control" ng-model="vm.restaurant.restaurantMobile" required />
-                            <span ng-show="form.restaurantMobile.$dirty && form.restaurantMobile.$error.required" class="help-block">Restaurant Contact Number is required</span>
+                            <input type="text" name="restaurantMobile"  class="form-control" ng-model="vm.restaurant.restaurantMobile" required maxlength="10"/>
+                            <span ng-show="adform.restaurantMobile.$dirty && adform.restaurantMobile.$error.required" class="help-block">Restaurant Contact Number is required</span>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register Restaurant</button>
+                            <button type="submit" class="btn btn-primary">Register Restaurant</button>
                             <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         </div>
                     </form>
@@ -99,24 +99,24 @@
             </div>
             <div class="modal-body" style="height: 356px;">
                 <div class="col-md-6">
-                    <form name="form" ng-submit="vm.updateRestaurant()" role="form">
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantName.$dirty && form.restaurantName.$error.required }">
+                    <form name="editform" ng-submit="vm.updateRestaurant()" role="form">
+                        <div class="form-group" ng-class="{ 'has-error': editform.restaurantName.$dirty && editform.restaurantName.$error.required }">
                             <label for="restaurantName">Restaurant name</label>
                             <input type="text" name="restaurantName" id="restaurantName" class="form-control" ng-model="vm.restaurant.restaurantName" required />
-                            <span ng-show="form.restaurantName.$dirty && form.restaurantName.$error.required" class="help-block">Restaurant name is required</span>
+                            <span ng-show="form.restaurantName.$dirty && editform.restaurantName.$error.required" class="help-block">Restaurant name is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantAddress.$dirty && form.restaurantAddress.$error.required }">
+                        <div class="form-group" ng-class="{ 'has-error': form.restaurantAddress.$dirty && editform.restaurantAddress.$error.required }">
                             <label for="restaurantAddress">Restaurant Address</label>
                             <input type="text" name="restaurantAddress" id="restaurantAddress" class="form-control" ng-model="vm.restaurant.restaurantAddress" required />
                             <span ng-show="form.restaurantAddress.$dirty && form.restaurantAddress.$error.required" class="help-block">Restaurant Address is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.restaurantMobile.$dirty && form.restaurantMobile.$error.required }">
+                        <div class="form-group" ng-class="{ 'has-error': editform.restaurantMobile.$dirty && editform.restaurantMobile.$error.required }">
                             <label for="restaurantMobile">Restaurant Contact Number</label>
-                            <input type="text" name="restaurantMobile" id="restaurantMobile" class="form-control" ng-model="vm.restaurant.restaurantMobile" required />
-                            <span ng-show="form.restaurantMobile.$dirty && form.restaurantMobile.$error.required" class="help-block">Restaurant Contact Number is required</span>
+                            <input type="text" name="restaurantMobile" id="restaurantMobile" class="form-control" ng-model="vm.restaurant.restaurantMobile" maxlength="10" required />
+                            <span ng-show="editform.restaurantMobile.$dirty && editform.restaurantMobile.$error.required" class="help-block">Restaurant Contact Number is required</span>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Update</button>
+                            <button type="submit" ng-disabled="editform.$invalid || vm.dataLoading" class="btn btn-primary">Update</button>
                             <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         </div>
                     </form>

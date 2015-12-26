@@ -9,7 +9,6 @@
 
     function RestaurantController(RestaurantService, UserService, $location, $rootScope, FlashService) {
         var vm = this;
-
         vm.addRestaurant = addRestaurant;
         vm.deleteRestaurant = deleteRestaurant;
         vm.openEditRestaurant = openEditRestaurant;
@@ -74,8 +73,11 @@
                 RestaurantService.Create(vm.restaurant)
                     .then(function (response) {
                         if (response.success) {
-                            FlashService.Success('Registration successful', true);
+                            FlashService.Success('Restaurant added successfully', true);
                             $location.path('/manageRestaurant');
+                            RestaurantService.GetAll().then(function(data) {
+                                vm.restaurantList = data;
+                            });
                         } else {
                             FlashService.Error(response.message);
                             vm.dataLoading = false;
@@ -83,7 +85,7 @@
                         $('#adModal').modal('toggle');
                     });
                 }
-            }
+        }
     }
 
 })();
