@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('app', ['ngRoute', 'ngCookies'])
+      .module('app', ['ui.bootstrap', 'ngRoute', 'ngCookies'])
       .config(config)
       .run(run);
 
@@ -39,6 +39,13 @@
             templateUrl: 'restaurant/addRestaurant.view.html',
             controllerAs: 'vm'
         })
+
+
+        //.when('/manageRestaurantMenu', {
+        //      controller: 'RestaurantController',
+        //      templateUrl: 'restaurant/manageRestaurantMenu.view.html',
+        //      controllerAs: 'vm'
+        //  })
 
         .otherwise({ redirectTo: '/login' });
   }

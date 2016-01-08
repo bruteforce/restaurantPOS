@@ -1,6 +1,5 @@
 This project is developed from angular seed.
-
-There are 5 routes defined for the app :
+There are 5 routes defined for this single page app :
 .when('/login', {
           controller: 'LoginController',
           templateUrl: 'login/login.view.html',
@@ -13,17 +12,16 @@ There are 5 routes defined for the app :
           controllerAs: 'vm'
         })
 
-
         .when('/manageMenu', {
-          controller: 'MenuController',
-          templateUrl: 'menu/addMenu.view.html',
-          controllerAs: 'vm'
-        })
+                  controller: 'MenuController',
+                  templateUrl: 'menu/addMenu.view.html',
+                  controllerAs: 'vm'
+                })
 
         .when('/manageRestaurant', {
-            controller: 'MenuController',
-            templateUrl: 'menu/addMenu.view.html',
-            controllerAs: 'vm'
+                    controller: 'RestaurantController',
+                    templateUrl: 'restaurant/addRestaurant.view.html',
+                    controllerAs: 'vm'
         })
 
 

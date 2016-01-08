@@ -5,16 +5,37 @@
         .module('app')
         .controller('RestaurantController', RestaurantController);
 
-    RestaurantController.$inject = ['RestaurantService','UserService', '$location', '$rootScope', 'FlashService'];
+    RestaurantController.$inject = ['RestaurantService', 'UserService','ItemService', '$location', '$rootScope', 'FlashService'];
 
-    function RestaurantController(RestaurantService, UserService, $location, $rootScope, FlashService) {
+    function RestaurantController(RestaurantService, UserService, ItemService, $location, $rootScope, FlashService) {
         var vm = this;
+        vm.itemObjectUpdate = itemObjectUpdate;
+        vm.restaurantItemObjectUpdate = restaurantItemObjectUpdate;
+        vm.addItemToMenu = addItemToMenu;
+        vm.removeItemToMenu = removeItemToMenu;
         vm.addRestaurant = addRestaurant;
         vm.deleteRestaurant = deleteRestaurant;
         vm.openEditRestaurant = openEditRestaurant;
+        vm.openManageRestaurant = openManageRestaurant;
         vm.updateRestaurant = updateRestaurant;
         vm.resetForm = resetForm;
+        vm.updateRestaurantMenuMapping = updateRestaurantMenuMapping;
         vm.restaurant={};
+        vm.restaurant.username = $rootScope.globals.currentUser.username;
+        vm.activeRestaurant = {};
+
+        vm.itemList = [];
+        vm.item="";
+        vm.itemObject = {};
+
+        vm.restaurantItem = "";
+        vm.restaurantItemList = [];
+        vm.restaurantItemObject = {};
+
+
+        ItemService.GetAll().then(function(data) {
+            vm.itemList = data;
+        });
 
         RestaurantService.GetAll().then(function(data) {
             vm.restaurantList = data;
@@ -48,6 +69,21 @@
             vm.restaurant.restaurantMobile = "";
             vm.restaurant.id = "";
             vm.dataLoading = false;
+        }
+
+        function openManageRestaurant(id)
+        {
+            for(var key in vm.restaurantList) {
+                if(vm.restaurantList[key].id==id) {
+                    vm.activeRestaurant.restaurantName = vm.restaurantList[key].restaurantName;
+                    vm.activeRestaurant.restaurantAddress = vm.restaurantList[key].restaurantAddress;
+                    vm.activeRestaurant.restaurantMobile = vm.restaurantList[key].restaurantMobile;
+                    vm.activeRestaurant.id = id;
+                }
+            }
+            var storageRestaurantMenuList = JSON.parse(localStorage.getItem("resmenu"+vm.activeRestaurant.id));
+            vm.restaurantItemList =  storageRestaurantMenuList!== null ? storageRestaurantMenuList: [];
+            $('#manageModal').modal('toggle');
         }
 
         function openEditRestaurant(id)
@@ -85,6 +121,41 @@
                         $('#adModal').modal('toggle');
                     });
                 }
+        }
+
+
+
+        function addItemToMenu()
+        {
+            vm.itemObject=jQuery.parseJSON(vm.itemObject);
+            vm.restaurantItemList.push(vm.itemObject);
+            vm.updateRestaurantMenuMapping();
+            vm.item="";
+            vm.restaurantItem="";
+
+        }
+        function removeItemToMenu()
+        {
+            vm.itemObject=jQuery.parseJSON(vm.restaurantItemObject);
+            vm.restaurantItemList.pop(vm.restaurantItemObject);
+            vm.updateRestaurantMenuMapping();
+            vm.item="";
+            vm.restaurantItem="";
+        }
+
+        function updateRestaurantMenuMapping()
+        {
+            localStorage.setItem("resmenu"+vm.activeRestaurant.id,JSON.stringify(vm.restaurantItemList));
+        }
+
+        function restaurantItemObjectUpdate(item)
+        {
+            vm.restaurantItemObject = item;
+        }
+
+        function itemObjectUpdate(item)
+        {
+            vm.itemObject = item;
         }
     }
 
