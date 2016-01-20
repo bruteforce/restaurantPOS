@@ -28,3 +28,5 @@ There are 5 routes defined for this single page app :
 The database for this app is right now local storage of the browser.
 
 And for all the entities CRUD services are defined in app-services.
+
+You can test the app by following the url: https://dl.dropboxusercontent.com/u/82903516/app/index.html#/login
